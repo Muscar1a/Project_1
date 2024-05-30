@@ -7,7 +7,12 @@ import com.restfb.Version;
 import com.restfb.exception.FacebookException;
 import com.restfb.types.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 
 public class ScoutFB {
     private static final String accessToken = "EAAEEI6GMikcBO1yxRYvyt7wRWN2qfJoXU7iWUlPeSlg3dZBUxvCckRveZAVSqw5RZCdqhCwZC1ZBlmlarGDqS8UhZB8FYke45zhlVYl1fvrNFXeVAZC298p6AGybpt0o3y0M22BTw1stAQEZCbl79qUaRi7F8s8Wnas5GYIe6onTog8ERfKhMZCgX36whCZB2izw0MhXVZBuJB5r4Am6y5gwb5MZBZALN6IZBd0ZB6IOMnSChgV4hvdZCeY2Ox6eK5LoX8mHZBQwy4AZDZD";
