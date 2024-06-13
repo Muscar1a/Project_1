@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class RecordUser extends PostRequest{
+public class RecordUserFeed extends PostRequest{
 
     @Override
     public String reformatData() throws IOException {

@@ -1,7 +1,8 @@
 package main;
 
 import main.airtable.RecordAccountData;
-import main.airtable.RecordUser;
+import main.airtable.RecordLikedData;
+import main.airtable.RecordUserFeed;
 import main.facebook.user.User;
 import org.json.JSONObject;
 
@@ -27,10 +28,11 @@ public class Main {
 //        RecordAccountData accountData = new RecordAccountData();
 //        accountData.reformatData();
 
-        RecordUser userFb = new RecordUser();
-        userFb.reformatData();
+//        RecordUserFeed userFb = new RecordUserFeed();
+//        userFb.reformatData();
 
-
+        RecordLikedData like = new RecordLikedData();
+        like.reformatData();
 
     }
 }
