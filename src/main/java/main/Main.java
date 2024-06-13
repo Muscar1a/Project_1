@@ -1,6 +1,8 @@
 package main;
 
+import main.airtable.RecordAccountData;
 import main.airtable.RecordUser;
+import main.facebook.user.User;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -21,8 +23,14 @@ public class Main {
 //        Scanner scanner = new Scanner(System.in);
 //        String option = scanner.nextLine();
 
-        RecordUser user = new RecordUser();
-        user.reformatData();
+
+//        RecordAccountData accountData = new RecordAccountData();
+//        accountData.reformatData();
+
+        RecordUser userFb = new RecordUser();
+        userFb.reformatData();
+
+
 
     }
 }
