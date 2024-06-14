@@ -2,6 +2,7 @@ package main;
 
 import main.airtable.RecordLikedData;
 import main.airtable.RecordManagedPage;
+import main.airtable.RecordPage;
 import main.airtable.RecordUserFeed;
 import org.json.JSONObject;
 
@@ -85,6 +86,16 @@ public class Main {
         final String BASE_ID = jsonObject.getString("baseID");
         final String TABLE_ID = jsonObject.getString("userTable");
 
+//        RecordPage page = new RecordPage();
+//        page.reformatData();
+
+        RecordUserFeed userFeed = new RecordUserFeed();
+        userFeed.reformatData();
+
+//        RecordLikedData likedData = new RecordLikedData();
+//        likedData.reformatData();
+
+        /*
         while (true) {
             System.out.println(general);
             Scanner s = new Scanner(System.in);
@@ -99,8 +110,8 @@ public class Main {
             if (option == 1) {
                 fbProcess();
             }
-
-
         }
+
+         */
     }
 }

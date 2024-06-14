@@ -1,7 +1,7 @@
 package main.airtable;
 
 import main.facebook.GetData;
-import main.facebook.user.Account;
+import main.facebook.user.Managed;
 import main.facebook.user.Feed;
 import main.facebook.user.User;
 import org.json.JSONArray;
@@ -20,7 +20,7 @@ public class RecordUserFeed extends PostRequest{
     public String reformatData() throws IOException {
 
         User userFb = new User("me?fields=id%2Cname%2Cemail&access_token=");
-        Feed userFeed = new Feed("me?fields=feed%7Bmessage%2Cid%7D&access_token=");
+        Feed userFeed = new Feed("me?fields=feed%7Bcreated_time%2Cmessage%7D&access_token=");
 
         String userFBOrder = userFb.order;
         String userFeedOrder = userFeed.order;
@@ -55,6 +55,7 @@ public class RecordUserFeed extends PostRequest{
 
                 if (dataObject.has("message")) {
                     fieldsObject.put("message", dataObject.getString("message"));
+                    fieldsObject.put("created time", dataObject.getString("created_time"));
                     fieldsObject.put("userId", jsonUser.getString("id"));
                     fieldsObject.put("fullname", jsonUser.getString("name"));
 
@@ -64,7 +65,7 @@ public class RecordUserFeed extends PostRequest{
                     JSONObject outputObject = new JSONObject();
                     outputObject.put("records", recordsArray);
                     String resData = outputObject.toString();
-//                    System.out.println(resData);
+                    System.out.println(resData);
                     POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
 
                 }
@@ -111,5 +112,3 @@ public class RecordUserFeed extends PostRequest{
 
     }
 }
-
-// EAAEEI6GMikcBOwiZCkyiZC4gUeUNmoW1vaNErTmenAGLJZAzALeHcPNDtxCnZAHqk6Geo3Vgxtj1RzQHZAGHF9bdSmiyVTdxbgLFD769CWJK9XI70BfZCOxqT1hUyqX1ZC9xYZBsRpPDOwAJjlQIF8WUqHX8qp5WsMWUF9luudlV9d4zA7BFw8MQaZCIFlRkoakMdDZCCFEAjA51qXEq8J8SmMu4WwbZBlbDgHORE7XsIRcDRsRtCgFjTlCZCObUlIwjVFFBIAZDZD
