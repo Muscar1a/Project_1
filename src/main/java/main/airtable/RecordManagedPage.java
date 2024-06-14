@@ -1,7 +1,7 @@
 package main.airtable;
 
 import main.facebook.GetData;
-import main.facebook.user.Account;
+import main.facebook.user.Managed;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,11 +12,11 @@ import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class RecordAccountData extends PostRequest{
+public class RecordManagedPage extends PostRequest{
 
     @Override
     public String reformatData() throws IOException {
-        Account accountData = new Account("me?fields=accounts%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
+        Managed accountData = new Managed("me?fields=accounts%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
         String order = accountData.order;
 
         final String API_INFO = new String(Files.readAllBytes(Paths.get("src/main/java/main/airtable/token.json")));
@@ -29,7 +29,7 @@ public class RecordAccountData extends PostRequest{
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your access token:");
         String accessToken = scanner.nextLine();
-        Account.setAccessToken(accessToken);
+        Managed.setAccessToken(accessToken);
 
         try {
             String res = GetData.getData(accessToken, order);
