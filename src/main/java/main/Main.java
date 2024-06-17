@@ -1,9 +1,6 @@
 package main;
 
-import main.airtable.RecordLikedData;
-import main.airtable.RecordManagedPage;
-import main.airtable.RecordPage;
-import main.airtable.RecordUserFeed;
+import main.airtable.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -86,14 +83,8 @@ public class Main {
         final String BASE_ID = jsonObject.getString("baseID");
         final String TABLE_ID = jsonObject.getString("userTable");
 
-//        RecordPage page = new RecordPage();
-//        page.reformatData();
-
-        RecordUserFeed userFeed = new RecordUserFeed();
-        userFeed.reformatData();
-
-//        RecordLikedData likedData = new RecordLikedData();
-//        likedData.reformatData();
+        String responseUser = GetRequest.getFromAirtable(BASE_ID, TABLE_ID, TOKEN_AIRTABLE);
+        GetRequest.toJsonFile(responseUser, "user.json");
 
         /*
         while (true) {
