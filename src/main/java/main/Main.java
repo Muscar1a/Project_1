@@ -83,8 +83,11 @@ public class Main {
         final String BASE_ID = jsonObject.getString("baseID");
         final String TABLE_ID = jsonObject.getString("userTable");
 
-        String responseUser = GetRequest.getFromAirtable(BASE_ID, TABLE_ID, TOKEN_AIRTABLE);
-        GetRequest.toJsonFile(responseUser, "user.json");
+//        String responseUser = GetRequest.getFromAirtable(BASE_ID, TABLE_ID, TOKEN_AIRTABLE);
+//        GetRequest.toJsonFile(responseUser, "user.json");
+
+        RecordLikedData like = new RecordLikedData();
+        like.reformatData();
 
         /*
         while (true) {
