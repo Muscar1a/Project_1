@@ -20,7 +20,8 @@ public class RecordUserFeed extends PostRequest{
     public String reformatData() throws IOException {
 
         User userFb = new User("me?fields=id%2Cname%2Cemail&access_token=");
-        Feed userFeed = new Feed("me?fields=feed%7Bcreated_time%2Cmessage%7D&access_token=");
+//        Feed userFeed = new Feed("me?fields=feed%7Bcreated_time%2Cmessage%7D&access_token=");
+        Feed userFeed = new Feed("me?fields=feed.limit(1000)&access_token=");
 
         String userFBOrder = userFb.order;
         String userFeedOrder = userFeed.order;
@@ -46,7 +47,8 @@ public class RecordUserFeed extends PostRequest{
 //            System.out.println(jsonFeed);
 
             JSONArray jsonFeedArray = jsonFeed.getJSONObject("feed").getJSONArray("data");
-//            System.out.println(jsonFeedArray);
+//            System.out.println(jsonFeedArray.length());
+
 
             for (int i = 0; i < jsonFeedArray.length(); i++) {
                 JSONArray recordsArray = new JSONArray();
@@ -65,7 +67,7 @@ public class RecordUserFeed extends PostRequest{
                     JSONObject outputObject = new JSONObject();
                     outputObject.put("records", recordsArray);
                     String resData = outputObject.toString();
-                    System.out.println(resData);
+//                    System.out.println(resData);
                     POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
 
                 }
@@ -73,28 +75,6 @@ public class RecordUserFeed extends PostRequest{
 
 
             }
-
-            /*
-            JSONObject newJsonObject = new JSONObject();
-            JSONArray recordsArray = new JSONArray();
-            JSONObject fieldsObject = new JSONObject();
-
-            fieldsObject.put("userId", jsonUser.getString("id"));
-            fieldsObject.put("fullname", jsonUser.getString("name"));
-//            fieldsObject.put("message", jsonFeed.getString("message"));
-//            fieldsObject.put("created_time", jsonFeed.getString("created_time"));
-            JSONObject fieldsWrapper = new JSONObject();
-            fieldsWrapper.put("fields", fieldsObject);
-            recordsArray.put(fieldsWrapper);
-            newJsonObject.put("records", recordsArray);
-
-            String resData = newJsonObject.toString();
-            System.out.println(resData);
-//            POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
-            System.out.println("DONE!");
-             */
-
-//            return resData;
             return null;
         } catch(JSONException e) {
             System.out.println("Error: Not found required field");

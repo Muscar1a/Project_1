@@ -19,7 +19,9 @@ public class RecordLikedData extends PostRequest{
     @Override
     public String reformatData() throws IOException {
         User userFb = new User("me?fields=id%2Cname%2Cemail&access_token=");
-        Likes likedData = new Likes("me?fields=likes%7Bname%2Ccreated_time%7D&access_token=");
+//        Likes likedData = new Likes("me?fields=likes%7Bname%2Ccreated_time%7D&access_token=");
+        Likes likedData = new Likes("me?fields=likes.limit(1000)%7Bname%2Ccreated_time%7D&access_token=");
+
 
         String userFBOrder = userFb.order;
         String likedDataOrder = likedData.order;
@@ -42,10 +44,10 @@ public class RecordLikedData extends PostRequest{
             String likedRes = GetData.getData(accessToken, likedDataOrder);
             JSONObject jsonUser = new JSONObject(userRes);
             JSONObject jsonLiked = new JSONObject(likedRes);
-            System.out.println(jsonLiked);
+//            System.out.println(jsonLiked);
 
             JSONArray jsonLikeArray = jsonLiked.getJSONObject("likes").getJSONArray("data");
-//            System.out.println(jsonLikeArray);
+//            System.out.println(jsonLikeArray.length());
 
             for (int i = 0; i < jsonLikeArray.length(); i++) {
                 JSONArray recordsArray = new JSONArray();
@@ -63,10 +65,11 @@ public class RecordLikedData extends PostRequest{
                 JSONObject outputObject = new JSONObject();
                 outputObject.put("records", recordsArray);
                 String resData = outputObject.toString();
-                System.out.println(resData);
+//                System.out.println(resData);
                 POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
-                System.out.println("DONE!");
+//                System.out.println("DONE!");
             }
+            System.out.println("Finish getting liked data!");
 
             return null;
         } catch(JSONException e) {

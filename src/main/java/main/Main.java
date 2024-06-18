@@ -86,9 +86,14 @@ public class Main {
 //        String responseUser = GetRequest.getFromAirtable(BASE_ID, TABLE_ID, TOKEN_AIRTABLE);
 //        GetRequest.toJsonFile(responseUser, "user.json");
 
-        RecordLikedData like = new RecordLikedData();
-        like.reformatData();
+//        RecordLikedData like = new RecordLikedData();
+//        like.reformatData();
 
+//        RecordUserFeed user = new RecordUserFeed();
+//        user.reformatData();
+
+            RecordManagedPage managedData = new RecordManagedPage();
+            managedData.reformatData();
         /*
         while (true) {
             System.out.println(general);

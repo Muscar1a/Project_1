@@ -30,9 +30,6 @@ public abstract class PostRequest {
             byte[] postData = res.getBytes(StandardCharsets.UTF_8);
             os.write(postData, 0, postData.length);
         }
-
-
-
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
 
