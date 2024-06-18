@@ -13,7 +13,7 @@ public abstract class PostRequest {
     public abstract String reformatData() throws IOException;
 
     public void POSTRequest(String baseID, String tableID, String airtableAPIToken, String res) throws IOException, URISyntaxException {
-        System.out.println("POSTRequest");
+//        System.out.println("POSTRequest");
 
         URI uri = new URI("https", "api.airtable.com", "/v0/" + baseID + "/" + tableID, null);
         URL url = uri.toURL();
@@ -36,7 +36,7 @@ public abstract class PostRequest {
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
 
-        System.out.println("Disconnect http");
+//        System.out.println("Disconnect http");
 
     }
 }
