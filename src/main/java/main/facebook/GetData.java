@@ -25,8 +25,17 @@ public class GetData {
         this.order = order;
     }
 
+    public static List<JSONObject> getAllData(String accessToken, String order) throws IOException {
+        List<JSONObject> allData = new ArrayList<>();
+        URL url = new URL("https://graph.facebook.com/v20.0/" + order + accessToken);
+        while(url != null) {
+            String response = getData(url);
+            JSONObject jsonResponse = new JSONObject(response);
+        }
+    }
+
     public static String getData(String accessToken, String order) throws IOException{
-        URL url = new URL("https://graph.facebook.com/v20.0/" + order + accessToken + "&limit=75");
+        URL url = new URL("https://graph.facebook.com/v20.0/" + order + accessToken);
 
         HttpURLConnection httpConnect = (HttpURLConnection) url.openConnection();
         httpConnect.setRequestMethod("GET");
@@ -39,6 +48,7 @@ public class GetData {
 //        String response = GetData.getData(GetData.getAccessToken(), order);
 //        System.out.println(res);
         scn.close();
+
         return res;
     }
 
