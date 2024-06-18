@@ -16,8 +16,8 @@ public class RecordManagedPage extends PostRequest{
 
     @Override
     public String reformatData() throws IOException {
-        Managed accountData = new Managed("me?fields=accounts%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
-//        Managed accountData = new Managed("me?fields=accounts.limit(1000)%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
+//        Managed accountData = new Managed("me?fields=accounts%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
+        Managed accountData = new Managed("me?fields=accounts.limit(1000)%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
         String order = accountData.order;
 
 
@@ -33,12 +33,12 @@ public class RecordManagedPage extends PostRequest{
         String accessToken = scanner.nextLine();
         Managed.setAccessToken(accessToken);
 
-        System.out.println("I pass this!");
+//        System.out.println("I pass this!");
 
         try {
             String res = GetData.getData(accessToken, order);
             JSONObject jsonObject = new JSONObject(res);
-            System.out.println(jsonObject);
+//            System.out.println(jsonObject);
 
             JSONArray jsonArray = jsonObject.getJSONObject("accounts").getJSONArray("data");
             System.out.println(jsonArray);
@@ -72,8 +72,8 @@ public class RecordManagedPage extends PostRequest{
                 JSONObject outputObject = new JSONObject();
                 outputObject.put("records", recordsArray);
                 String resData = outputObject.toString();
-                System.out.println(resData);
-//                POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
+//                System.out.println(resData);
+                POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
             }
 
             return null;
