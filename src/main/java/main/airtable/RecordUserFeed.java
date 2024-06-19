@@ -1,7 +1,7 @@
 package main.airtable;
 
 import main.facebook.GetData;
-import main.facebook.user.Account;
+import main.facebook.user.Managed;
 import main.facebook.user.Feed;
 import main.facebook.user.User;
 import org.json.JSONArray;
@@ -20,7 +20,8 @@ public class RecordUserFeed extends PostRequest{
     public String reformatData() throws IOException {
 
         User userFb = new User("me?fields=id%2Cname%2Cemail&access_token=");
-        Feed userFeed = new Feed("me?fields=feed%7Bmessage%2Cid%7D&access_token=");
+//        Feed userFeed = new Feed("me?fields=feed%7Bcreated_time%2Cmessage%7D&access_token=");
+        Feed userFeed = new Feed("me?fields=feed.limit(1000)&access_token=");
 
         String userFBOrder = userFb.order;
         String userFeedOrder = userFeed.order;
@@ -46,7 +47,8 @@ public class RecordUserFeed extends PostRequest{
 //            System.out.println(jsonFeed);
 
             JSONArray jsonFeedArray = jsonFeed.getJSONObject("feed").getJSONArray("data");
-//            System.out.println(jsonFeedArray);
+//            System.out.println(jsonFeedArray.length());
+
 
             for (int i = 0; i < jsonFeedArray.length(); i++) {
                 JSONArray recordsArray = new JSONArray();
@@ -55,6 +57,7 @@ public class RecordUserFeed extends PostRequest{
 
                 if (dataObject.has("message")) {
                     fieldsObject.put("message", dataObject.getString("message"));
+                    fieldsObject.put("created time", dataObject.getString("created_time"));
                     fieldsObject.put("userId", jsonUser.getString("id"));
                     fieldsObject.put("fullname", jsonUser.getString("name"));
 
@@ -72,28 +75,6 @@ public class RecordUserFeed extends PostRequest{
 
 
             }
-
-            /*
-            JSONObject newJsonObject = new JSONObject();
-            JSONArray recordsArray = new JSONArray();
-            JSONObject fieldsObject = new JSONObject();
-
-            fieldsObject.put("userId", jsonUser.getString("id"));
-            fieldsObject.put("fullname", jsonUser.getString("name"));
-//            fieldsObject.put("message", jsonFeed.getString("message"));
-//            fieldsObject.put("created_time", jsonFeed.getString("created_time"));
-            JSONObject fieldsWrapper = new JSONObject();
-            fieldsWrapper.put("fields", fieldsObject);
-            recordsArray.put(fieldsWrapper);
-            newJsonObject.put("records", recordsArray);
-
-            String resData = newJsonObject.toString();
-            System.out.println(resData);
-//            POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
-            System.out.println("DONE!");
-             */
-
-//            return resData;
             return null;
         } catch(JSONException e) {
             System.out.println("Error: Not found required field");
@@ -111,5 +92,3 @@ public class RecordUserFeed extends PostRequest{
 
     }
 }
-
-// EAAEEI6GMikcBOwiZCkyiZC4gUeUNmoW1vaNErTmenAGLJZAzALeHcPNDtxCnZAHqk6Geo3Vgxtj1RzQHZAGHF9bdSmiyVTdxbgLFD769CWJK9XI70BfZCOxqT1hUyqX1ZC9xYZBsRpPDOwAJjlQIF8WUqHX8qp5WsMWUF9luudlV9d4zA7BFw8MQaZCIFlRkoakMdDZCCFEAjA51qXEq8J8SmMu4WwbZBlbDgHORE7XsIRcDRsRtCgFjTlCZCObUlIwjVFFBIAZDZD

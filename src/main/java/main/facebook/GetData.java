@@ -1,8 +1,15 @@
 package main.facebook;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GetData {
@@ -19,6 +26,7 @@ public class GetData {
     }
     public static String getData(String accessToken, String order) throws IOException{
         URL url = new URL("https://graph.facebook.com/v20.0/" + order + accessToken);
+
         HttpURLConnection httpConnect = (HttpURLConnection) url.openConnection();
         httpConnect.setRequestMethod("GET");
         InputStream responseStream = httpConnect.getResponseCode() / 100 == 2
@@ -30,6 +38,7 @@ public class GetData {
 //        String response = GetData.getData(GetData.getAccessToken(), order);
 //        System.out.println(res);
         scn.close();
+
         return res;
     }
 
