@@ -81,10 +81,19 @@ public class Main {
 
         final String TOKEN_AIRTABLE = jsonObject.getString("APIToken");
         final String BASE_ID = jsonObject.getString("baseID");
-        final String TABLE_ID = jsonObject.getString("userTable");
+        final String USER_TABLE = jsonObject.getString("userTable");
+        final String ACCOUNT_TABLE = jsonObject.getString("accountTable");
+        final String LIKE_TABLE = jsonObject.getString("likeTable");
 
-//        String responseUser = GetRequest.getFromAirtable(BASE_ID, TABLE_ID, TOKEN_AIRTABLE);
-//        GetRequest.toJsonFile(responseUser, "user.json");
+        String responseUser = GetRequest.getFromAirtable(BASE_ID, USER_TABLE, TOKEN_AIRTABLE);
+        GetRequest.toJsonFile(responseUser, "user.json");
+
+        String responseManagePage = GetRequest.getFromAirtable(BASE_ID, ACCOUNT_TABLE, TOKEN_AIRTABLE);
+        GetRequest.toJsonFile(responseManagePage, "manage.json");
+
+        String responseLikePage = GetRequest.getFromAirtable(BASE_ID, LIKE_TABLE, TOKEN_AIRTABLE);
+        GetRequest.toJsonFile(responseLikePage, "like.json");
+
 
 //        RecordLikedData like = new RecordLikedData();
 //        like.reformatData();
@@ -92,8 +101,9 @@ public class Main {
 //        RecordUserFeed user = new RecordUserFeed();
 //        user.reformatData();
 
-            RecordManagedPage managedData = new RecordManagedPage();
-            managedData.reformatData();
+//            RecordManagedPage managedData = new RecordManagedPage();
+//            managedData.reformatData();
+
         /*
         while (true) {
             System.out.println(general);

@@ -19,8 +19,8 @@ public class RecordPage extends PostRequest{
     @Override
     public String reformatData() throws IOException {
         User userFb = new User("me?fields=id%2Cname%2Cemail&access_token=");
-        Likes likedData = new Likes("me?fields=likes%7Bname%2Ccreated_time%7D&access_token=");
-        Managed accountData = new Managed("me?fields=accounts%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
+        Likes likedData = new Likes("me?fields=likes.limit(1000)%7Bname%2Ccreated_time%7D&access_token=");
+        Managed accountData = new Managed("me?fields=accounts.limit(1000)%7Bcategory_list%2Ctasks%2Cname%7D&access_token=");
 
         String userFBOrder = userFb.order;
         String likedDataOrder = likedData.order;
@@ -54,8 +54,8 @@ public class RecordPage extends PostRequest{
             JSONArray jsonAccountArray = jsonAccount.getJSONObject("accounts").getJSONArray("data");
 //            System.out.println(jsonAccountArray);
 
-            System.out.println(jsonLikeArray.length());
-/*
+//            System.out.println(jsonLikeArray.length());
+
             for (int i = 0; i < jsonLikeArray.length(); i++) {
                 JSONArray recordsArray = new JSONArray();
                 JSONObject fieldsObject = new JSONObject();
@@ -82,7 +82,7 @@ public class RecordPage extends PostRequest{
 //                POSTRequest(BASE_ID, TABLE_ID, TOKEN_AIRTABLE, resData);
 //                System.out.println("DONE!");
             }
- */
+
             return null;
         } catch(JSONException e) {
             System.out.println("Error: Not found required field");

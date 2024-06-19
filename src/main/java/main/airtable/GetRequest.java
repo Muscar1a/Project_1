@@ -23,7 +23,7 @@ public class GetRequest {
                     : httpConn.getErrorStream();
         Scanner s = new Scanner((responseStream)).useDelimiter("\\A");
         String response = s.hasNext() ? s.next() : "";
-        System.out.println(response);
+//        System.out.println(response);
         s.close();
         return response;
     }
@@ -32,11 +32,11 @@ public class GetRequest {
         FileWriter fileWriter = null;
         try {
             JSONObject jsonObject = new JSONObject(response);
-            System.out.println("Try to export");
+//            System.out.println("Try to export");
             fileWriter = new FileWriter(fileName);
-            System.out.println("Exporting");
+//            System.out.println("Exporting");
             fileWriter.write(jsonObject.toString());
-            System.out.println("Export successful");
+//            System.out.println("Export successful");
         } catch (JSONException e) {
             System.out.println("Required files not found");
         }
