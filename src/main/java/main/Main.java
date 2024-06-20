@@ -1,6 +1,9 @@
 package main;
 
 import main.airtable.*;
+import main.stat.ExportJsonToExcelFile;
+import main.stat.UserBarChart;
+import main.stat.UserPieChart;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -31,9 +34,14 @@ public class Main {
             "------------------" + TEXT_BOLD +TEXT_GREEN + "Airtable" + TEXT_RESET +"--------------------\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "4. " + TEXT_RESET + "Get all data from airtable to json file.\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "5. " + TEXT_RESET + "Get only readable link airtable base.\n" +
+
+            "----------------" + TEXT_BOLD +TEXT_GREEN + "Facebook API" + TEXT_RESET +"------------------\n" +
+            TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "6. " + TEXT_RESET + "Create Excel file for data from Airtable.\n" +
+            TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "7. " + TEXT_RESET + "Create bar chart UserBarChart.\n" +
+            TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "8. " + TEXT_RESET + "Create pie chart UserPieChart.\n" +
             "----------------------------------------------\n" +
-            "4. Help \n" +
-            TEXT_RED + "5. Exit\n\n" +
+            "9. Help \n" +
+            TEXT_RED + "10. Exit\n\n" +
 
             TEXT_YELLOW+TEXT_BOLD +"Please choose an option: " + TEXT_RESET;
 
@@ -110,6 +118,42 @@ public class Main {
             } else if (option == 5) {
                 System.out.println("Get readable link airtable base.");
                 System.out.println("Link to airtable: https://airtable.com/appGwRmPbiRacFnAq/shrFXFC69Vyom5rzI");
+            } else if (option == 6) {
+                System.out.println("--Create Excel file for data from Airtable--");
+                ExportJsonToExcelFile.toExcel();
+                System.out.println(TEXT_CYAN + "Check file Airtable_Base_Data.xlsx in the folder 'result'" + TEXT_RESET);
+            } else if (option == 7) {
+                System.out.println("--Create bar chart UserBarChart--");
+                UserBarChart.getUserBarChart();
+                System.out.println(TEXT_CYAN + "Check file userBarChart.png in the folder 'result'" + TEXT_RESET);
+            } else if (option == 8) {
+                System.out.println("--Create pie chart UserPieChart--");
+                UserPieChart.getUserPieChart();
+                System.out.println(TEXT_CYAN + "Check file userPieChart.png in the folder 'result'" + TEXT_RESET);
+            } else if (option == 9) {
+                System.out.println(TEXT_YELLOW +"ENTER AN INTEGER FROM 1-8 TO USE ONE OF THESE FUNCTION:"+ TEXT_RESET);
+                System.out.println(general);
+            } else if (option == 10) {
+                System.out.println(TEXT_YELLOW + "GOOD BYE, THANKS A LOT!" + TEXT_RESET);
+                System.exit(0);
+                break;
+            }
+
+            System.out.println("Do you want to continue using application? \n"
+                    + TEXT_GREEN+ "\t Y/y/YES to continue\n" +TEXT_RESET
+                    + TEXT_RED + "\t Any other key to exit" +TEXT_RESET);
+
+            String choosing = s.nextLine();
+            if (choosing == "Y" || choosing == "y" || choosing == "Yes" || choosing == "yes")
+            {
+                continue;
+            }
+            else
+            {
+                System.out.println(TEXT_YELLOW + "GOOD BYE! SEE YOU AGAIN" + TEXT_RESET);
+                s.close();
+                System.exit(0);
+                break;
             }
         }
     }

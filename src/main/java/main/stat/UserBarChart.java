@@ -51,7 +51,7 @@ public class UserBarChart {
             userBarChart.getStyler().setLegendPosition(LegendPosition.InsideNW);
             userBarChart.addSeries("Posts", years, userCounts);
 
-            BitmapEncoder.saveBitmap(userBarChart, "userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(userBarChart, "result/userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
         } catch (Exception e) {
             System.out.print("Cannot create the bar chart");
         }

@@ -44,7 +44,7 @@ public class UserPieChart {
                     .title("Distribution of Feed Posts by Year")
                     .theme(ChartTheme.XChart)
                     .build();
-            
+
             List<String> years = new ArrayList<>(postsPerYear.keySet());
             List<Integer> postCounts = new ArrayList<>(postsPerYear.values());
             for (int i = 0; i < years.size(); i++) {
