@@ -2,58 +2,59 @@ package main.stat;
 
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler.ChartTheme;
-import org.knowm.xchart.style.Styler.LegendPosition;
-
+import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserBarChart {
+
     public static void getUserBarChart() {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get("user.json")));
+            String jsonString = new String(Files.readAllBytes(Paths.get("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/user.json")));
+
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray recordsArray = jsonObject.getJSONArray("records");
 
-            Map<String, Integer> postsPerYear = new HashMap<>();
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+            Map<String, Integer> yearCountMap = new HashMap<>();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ");
 
             for (int i = 0; i < recordsArray.length(); i++) {
                 JSONObject record = recordsArray.getJSONObject(i);
-                String createdTime = record.getJSONObject("fields").getString("created time");
-                LocalDateTime crTime = LocalDateTime.parse(createdTime, formatter);
+                JSONObject fields = record.getJSONObject("fields");
+                String createdTime = fields.getString("created time");
+                ZonedDateTime dateTime = ZonedDateTime.parse(createdTime, formatter);
+                String year = String.valueOf(dateTime.getYear());
 
-                String year = String.valueOf(crTime.getYear());
-                postsPerYear.put(year, postsPerYear.getOrDefault(year, 0) + 1);
+                yearCountMap.put(year, yearCountMap.getOrDefault(year, 0) + 1);
             }
 
-            CategoryChart userBarChart = new CategoryChartBuilder()
-                    .width(690)
-                    .height(860)
-                    .title("Number of Posts per Year")
+            CategoryChart barChart = new CategoryChartBuilder()
+                    .width(800)
+                    .height(600)
+                    .title("Number of Posts Per Year")
                     .xAxisTitle("Year")
                     .yAxisTitle("Number of Posts")
                     .theme(ChartTheme.XChart)
                     .build();
 
-            List<String> years = new ArrayList<>(postsPerYear.keySet());
-            List<Integer> userCounts = new ArrayList<>(postsPerYear.values());
-            userBarChart.getStyler().setLegendPosition(LegendPosition.InsideNW);
-            userBarChart.addSeries("Posts", years, userCounts);
+            List<String> years = new ArrayList<>(yearCountMap.keySet());
+            List<Integer> counts = new ArrayList<>(yearCountMap.values());
 
-            BitmapEncoder.saveBitmap(userBarChart, "result/userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
-        } catch (Exception e) {
-            System.out.print("Cannot create the bar chart");
+            barChart.addSeries("Posts Per Year", years, counts);
+
+            BitmapEncoder.saveBitmap(barChart, "/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
+
+        } catch (IOException e) {
+            System.out.print("Cannot create UserBarChart: " + e.getMessage());
         }
     }
 }

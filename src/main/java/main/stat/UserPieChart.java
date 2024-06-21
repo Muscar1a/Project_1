@@ -11,50 +11,50 @@ import org.json.JSONObject;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserPieChart {
+
     public static void getUserPieChart() {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get("user.json")));
+            String jsonString = new String(Files.readAllBytes(Paths.get("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/user.json")));
+
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray recordsArray = jsonObject.getJSONArray("records");
 
-            Map<String, Integer> postsPerYear = new HashMap<>();
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+            Map<String, Integer> yearCountMap = new HashMap<>();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ");
 
             for (int i = 0; i < recordsArray.length(); i++) {
                 JSONObject record = recordsArray.getJSONObject(i);
-                String createdTime = record.getJSONObject("fields").getString("created time");
-                LocalDateTime crTime = LocalDateTime.parse(createdTime, formatter);
+                JSONObject fields = record.getJSONObject("fields");
+                String createdTime = fields.getString("created time");
+                ZonedDateTime dateTime = ZonedDateTime.parse(createdTime, formatter);
+                String year = String.valueOf(dateTime.getYear());
 
-                String year = String.valueOf(crTime.getYear());
-                postsPerYear.put(year, postsPerYear.getOrDefault(year, 0) + 1);
+                yearCountMap.put(year, yearCountMap.getOrDefault(year, 0) + 1);
             }
 
-            PieChart userPieChart = new PieChartBuilder()
+            PieChart pieChart = new PieChartBuilder()
                     .width(800)
                     .height(600)
-                    .title("Distribution of Feed Posts by Year")
+                    .title("Distribution of Posts Per Year")
                     .theme(ChartTheme.XChart)
                     .build();
 
-            List<String> years = new ArrayList<>(postsPerYear.keySet());
-            List<Integer> postCounts = new ArrayList<>(postsPerYear.values());
-            for (int i = 0; i < years.size(); i++) {
-                userPieChart.addSeries(years.get(i), postCounts.get(i));
+            for (Map.Entry<String, Integer> entry : yearCountMap.entrySet()) {
+                pieChart.addSeries(entry.getKey(), entry.getValue());
             }
 
-            BitmapEncoder.saveBitmap(userPieChart, "userPieChart.png", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(pieChart, "/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/userPieChart.png", BitmapEncoder.BitmapFormat.PNG);
 
         } catch (IOException e) {
-            System.err.println("Cannot create the pie chart");
+            System.out.print("Cannot create UserPieChart: " + e.getMessage());
         }
     }
 }

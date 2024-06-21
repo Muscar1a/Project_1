@@ -111,7 +111,7 @@ public class ExportJsonToExcelFile {
             }
 
 
-            FileOutputStream outputStream = new FileOutputStream(new File("Airtable_Base_Data.xlsx"));
+            FileOutputStream outputStream = new FileOutputStream(new File("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/Airtable_Base_Data.xlsx"));
 
             workbook.write(outputStream);
             workbook.close();

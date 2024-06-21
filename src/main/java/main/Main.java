@@ -72,7 +72,7 @@ public class Main {
             System.out.println(general);
             int option = s.nextInt();
 
-            while (option > 7) {
+            while (option > 10) {
                 System.out.println(TEXT_RED + TEXT_UNDERLINE + "Invalid option!" + TEXT_RESET);
                 System.out.print(TEXT_YELLOW+TEXT_BOLD +"Please choose an option: " + TEXT_RESET);
                 option = s.nextInt();
@@ -139,11 +139,11 @@ public class Main {
                 break;
             }
 
+            String choosing = s.nextLine();
             System.out.println("Do you want to continue using application? \n"
                     + TEXT_GREEN+ "\t Y/y/YES to continue\n" +TEXT_RESET
                     + TEXT_RED + "\t Any other key to exit" +TEXT_RESET);
 
-            String choosing = s.nextLine();
             if (choosing == "Y" || choosing == "y" || choosing == "Yes" || choosing == "yes")
             {
                 continue;
