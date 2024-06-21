@@ -21,7 +21,7 @@ public class UserPieChart {
 
     public static void getUserPieChart() {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/user.json")));
+            String jsonString = new String(Files.readAllBytes(Paths.get("src/main/ExportJSON/user.json")));
 
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray recordsArray = jsonObject.getJSONArray("records");
@@ -51,7 +51,7 @@ public class UserPieChart {
                 pieChart.addSeries(entry.getKey(), entry.getValue());
             }
 
-            BitmapEncoder.saveBitmap(pieChart, "/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/userPieChart.png", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(pieChart, "src/main/result/userPieChart.png", BitmapEncoder.BitmapFormat.PNG);
 
         } catch (IOException e) {
             System.out.print("Cannot create UserPieChart: " + e.getMessage());

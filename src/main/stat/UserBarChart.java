@@ -18,7 +18,7 @@ public class UserBarChart {
 
     public static void getUserBarChart() {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/user.json")));
+            String jsonString = new String(Files.readAllBytes(Paths.get("src/main/ExportJSON/user.json")));
 
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray recordsArray = jsonObject.getJSONArray("records");
@@ -51,7 +51,7 @@ public class UserBarChart {
 
             barChart.addSeries("Posts Per Year", years, counts);
 
-            BitmapEncoder.saveBitmap(barChart, "/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(barChart, "src/main/result/userBarChart.png", BitmapEncoder.BitmapFormat.PNG);
 
         } catch (IOException e) {
             System.out.print("Cannot create UserBarChart: " + e.getMessage());

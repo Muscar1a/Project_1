@@ -15,7 +15,7 @@ public class ExportJsonToExcelFile {
 
     public static void toExcel() {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get("user.json")));
+            String jsonString = new String(Files.readAllBytes(Paths.get("src/main/ExportJSON/user.json")));
 
             Workbook workbook = new XSSFWorkbook();
 
@@ -49,7 +49,7 @@ public class ExportJsonToExcelFile {
             }
 
 
-            String jsonString2 = new String(Files.readAllBytes(Paths.get("manage.json")));
+            String jsonString2 = new String(Files.readAllBytes(Paths.get("src/main/ExportJSON/manage.json")));
             Sheet sheet2 = workbook.createSheet("Managed Page");
 
             Row headerRow2 = sheet2.createRow(0);
@@ -78,7 +78,7 @@ public class ExportJsonToExcelFile {
                 sheet.autoSizeColumn(i);
             }
 
-            String jsonString3 = new String(Files.readAllBytes(Paths.get("like.json")));
+            String jsonString3 = new String(Files.readAllBytes(Paths.get("src/main/ExportJSON/like.json")));
             Sheet sheet3 = workbook.createSheet("Liked Page");
 
             Row headerRow3 = sheet3.createRow(0);
@@ -111,7 +111,7 @@ public class ExportJsonToExcelFile {
             }
 
 
-            FileOutputStream outputStream = new FileOutputStream(new File("/Users/macbook/Documents/GitHub/Project_1.Instagram/src/main/java/main/result/Airtable_Base_Data.xlsx"));
+            FileOutputStream outputStream = new FileOutputStream(new File("src/main/result/Airtable_Base_Data.xlsx"));
 
             workbook.write(outputStream);
             workbook.close();
