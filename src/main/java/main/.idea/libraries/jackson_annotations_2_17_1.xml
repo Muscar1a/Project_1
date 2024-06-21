@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="jackson-annotations-2.17.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/jackson-annotations-2.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jackson-core-2.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jackson-databind-2.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/json-20090211.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/gson-2.11.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/poi-5.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/restfb-2024.4.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/Project1-0.0.1-SNAPSHOT-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/json-20240303-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
