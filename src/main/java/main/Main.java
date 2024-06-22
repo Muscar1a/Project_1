@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -36,7 +37,7 @@ public class Main {
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "4. " + TEXT_RESET + "Get all data from airtable to json file.\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "5. " + TEXT_RESET + "Get only readable link airtable base.\n" +
 
-            "----------------" + TEXT_BOLD +TEXT_GREEN + "Facebook API" + TEXT_RESET +"------------------\n" +
+            "----------" + TEXT_BOLD +TEXT_GREEN + "Data to Excel and Charts" + TEXT_RESET +"------------\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "6. " + TEXT_RESET + "Create Excel file for data from Airtable.\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "7. " + TEXT_RESET + "Create bar chart UserBarChart.\n" +
             TEXT_ITALIC +TEXT_BOLD +TEXT_BLUE + "8. " + TEXT_RESET + "Create pie chart UserPieChart.\n" +
@@ -140,12 +141,14 @@ public class Main {
                 break;
             }
 
+            /*
+
             String choosing = s.nextLine();
             System.out.println("Do you want to continue using application? \n"
                     + TEXT_GREEN+ "\t Y/y/YES to continue\n" +TEXT_RESET
                     + TEXT_RED + "\t Any other key to exit" +TEXT_RESET);
 
-            if (choosing == "Y" || choosing == "y" || choosing == "Yes" || choosing == "yes")
+            if (Objects.equals(choosing, "Y") || Objects.equals(choosing, "y") || Objects.equals(choosing, "Yes") || Objects.equals(choosing, "yes"))
             {
                 continue;
             }
@@ -156,6 +159,7 @@ public class Main {
                 System.exit(0);
                 break;
             }
+            */
         }
     }
 }
