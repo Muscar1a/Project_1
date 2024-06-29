@@ -4,12 +4,12 @@ import main.airtable.*;
 import main.stat.ExportJsonToExcelFile;
 import main.stat.UserBarChart;
 import main.stat.UserPieChart;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -72,94 +72,96 @@ public class Main {
         Scanner s = new Scanner(System.in);
         while (true) {
             System.out.println(general);
-            int option = s.nextInt();
+            try {
+                int option = s.nextInt();
+                while (option > 10) {
+                    System.out.println(TEXT_RED + TEXT_UNDERLINE + "Invalid option!" + TEXT_RESET);
+                    System.out.print(TEXT_YELLOW + TEXT_BOLD + "Please choose an option: " + TEXT_RESET);
+                    option = s.nextInt();
+                }
+                if (option == 1) {
+                    System.out.println("--- Getting user's feeds ---");
+                    RecordUserFeed feed = new RecordUserFeed();
+                    feed.reformatData();
+                } else if (option == 2) {
+                    System.out.println("--- Getting user's like pages ---");
+                    RecordLikedData likeData = new RecordLikedData();
+                    likeData.reformatData();
+                } else if (option == 3) {
+                    System.out.println("--- Getting user's managed pages ---");
+                    RecordManagedPage managedData = new RecordManagedPage();
+                    managedData.reformatData();
+                } else if (option == 4) {
+                    try {
+                        System.out.println("--- Getting all data from airtable");
+                        String responseUser = GetRequest.getFromAirtable(BASE_ID, USER_TABLE, TOKEN_AIRTABLE);
+                        GetRequest.toJsonFile(responseUser, "user.json");
+                        System.out.println("User's feed saved to user.json!");
+                    } catch (Exception e) {
+                        System.out.println(TEXT_RED + "The API Token of Airtable is broken. Contact admin to update the tool" + TEXT_RESET);
+                    }
 
-            while (option > 10) {
-                System.out.println(TEXT_RED + TEXT_UNDERLINE + "Invalid option!" + TEXT_RESET);
-                System.out.print(TEXT_YELLOW+TEXT_BOLD +"Please choose an option: " + TEXT_RESET);
-                option = s.nextInt();
-            }
-            if (option == 1) {
-                System.out.println("--- Getting user's feeds ---");
-                RecordUserFeed feed = new RecordUserFeed();
-                feed.reformatData();
-            } else if (option == 2) {
-                System.out.println("--- Getting user's like pages ---");
-                RecordLikedData likeData = new RecordLikedData();
-                likeData.reformatData();
-            } else if (option == 3) {
-                System.out.println("--- Getting user's managed pages ---");
-                RecordManagedPage managedData = new RecordManagedPage();
-                managedData.reformatData();
-            } else if (option == 4) {
-                try {
-                    System.out.println("--- Getting all data from airtable");
-                    String responseUser = GetRequest.getFromAirtable(BASE_ID, USER_TABLE, TOKEN_AIRTABLE);
-                    GetRequest.toJsonFile(responseUser, "user.json");
-                    System.out.println("User's feed saved to user.json!");
-                } catch (Exception e) {
-                    System.out.println(TEXT_RED+ "The API Token of Airtable is broken. Contact admin to update the tool"+ TEXT_RESET);
+                    try {
+                        String responseManagePage = GetRequest.getFromAirtable(BASE_ID, ACCOUNT_TABLE, TOKEN_AIRTABLE);
+                        GetRequest.toJsonFile(responseManagePage, "manage.json");
+                        System.out.println("User's managed page saved to manage.json!");
+                    } catch (Exception e) {
+                        System.out.println(TEXT_RED + "The API Token of Airtable is broken. Contact admin to update the tool" + TEXT_RESET);
+                    }
+
+                    try {
+                        String responseLikePage = GetRequest.getFromAirtable(BASE_ID, LIKE_TABLE, TOKEN_AIRTABLE);
+                        GetRequest.toJsonFile(responseLikePage, "like.json");
+                        System.out.println("User's like page saved to like.json!");
+                    } catch (Exception e) {
+                        System.out.println(TEXT_RED + "The API Token of Airtable is broken. Contact admin to update the tool" + TEXT_RESET);
+                    }
+
+                } else if (option == 5) {
+                    System.out.println("Get readable link airtable base.");
+                    System.out.println("Link to airtable: https://airtable.com/appGwRmPbiRacFnAq/shrFXFC69Vyom5rzI");
+                } else if (option == 6) {
+                    System.out.println("--Create Excel file for data from Airtable--");
+                    ExportJsonToExcelFile.toExcel();
+                    System.out.println(TEXT_CYAN + "Check file Airtable_Base_Data.xlsx in the folder 'result'" + TEXT_RESET);
+                } else if (option == 7) {
+                    System.out.println("--Create bar chart UserBarChart--");
+                    UserBarChart.getUserBarChart();
+                    System.out.println(TEXT_CYAN + "Check file userBarChart.png in the folder 'result'" + TEXT_RESET);
+                } else if (option == 8) {
+                    System.out.println("--Create pie chart UserPieChart--");
+                    UserPieChart.getUserPieChart();
+                    System.out.println(TEXT_CYAN + "Check file userPieChart.png in the folder 'result'" + TEXT_RESET);
+                } else if (option == 9) {
+                    System.out.println(TEXT_YELLOW + "ENTER AN INTEGER FROM 1-8 TO USE ONE OF THESE FUNCTION:" + TEXT_RESET);
+                    System.out.println(general);
+                } else if (option == 10) {
+                    System.out.println(TEXT_YELLOW + "GOOD BYE, THANKS A LOT!" + TEXT_RESET);
+                    s.close();
+                    System.exit(0);
+                    break;
                 }
 
-                try {
-                    String responseManagePage = GetRequest.getFromAirtable(BASE_ID, ACCOUNT_TABLE, TOKEN_AIRTABLE);
-                    GetRequest.toJsonFile(responseManagePage, "manage.json");
-                    System.out.println("User's managed page saved to manage.json!");
-                } catch (Exception e) {
-                    System.out.println(TEXT_RED+ "The API Token of Airtable is broken. Contact admin to update the tool"+ TEXT_RESET);
+
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Do you want to continue using application? \n"
+                        + TEXT_GREEN + "\t Y/y/YES to continue\n" + TEXT_RESET
+                        + TEXT_RED + "\t Any other key to exit" + TEXT_RESET);
+                String choosing = sc.nextLine();
+
+                if (Objects.equals(choosing, "Y") || Objects.equals(choosing, "y") || Objects.equals(choosing, "Yes") || Objects.equals(choosing, "yes")) {
+                    continue;
+                } else {
+                    System.out.println(TEXT_YELLOW + "GOOD BYE! SEE YOU AGAIN" + TEXT_RESET);
+                    s.close();
+                    System.exit(0);
+                    break;
                 }
-
-                try {
-                    String responseLikePage = GetRequest.getFromAirtable(BASE_ID, LIKE_TABLE, TOKEN_AIRTABLE);
-                    GetRequest.toJsonFile(responseLikePage, "like.json");
-                    System.out.println("User's like page saved to like.json!");
-                } catch (Exception e) {
-                    System.out.println(TEXT_RED+ "The API Token of Airtable is broken. Contact admin to update the tool"+ TEXT_RESET);
-                }
-
-            } else if (option == 5) {
-                System.out.println("Get readable link airtable base.");
-                System.out.println("Link to airtable: https://airtable.com/appGwRmPbiRacFnAq/shrFXFC69Vyom5rzI");
-            } else if (option == 6) {
-                System.out.println("--Create Excel file for data from Airtable--");
-                ExportJsonToExcelFile.toExcel();
-                System.out.println(TEXT_CYAN + "Check file Airtable_Base_Data.xlsx in the folder 'result'" + TEXT_RESET);
-            } else if (option == 7) {
-                System.out.println("--Create bar chart UserBarChart--");
-                UserBarChart.getUserBarChart();
-                System.out.println(TEXT_CYAN + "Check file userBarChart.png in the folder 'result'" + TEXT_RESET);
-            } else if (option == 8) {
-                System.out.println("--Create pie chart UserPieChart--");
-                UserPieChart.getUserPieChart();
-                System.out.println(TEXT_CYAN + "Check file userPieChart.png in the folder 'result'" + TEXT_RESET);
-            } else if (option == 9) {
-                System.out.println(TEXT_YELLOW +"ENTER AN INTEGER FROM 1-8 TO USE ONE OF THESE FUNCTION:"+ TEXT_RESET);
-                System.out.println(general);
-            } else if (option == 10) {
-                System.out.println(TEXT_YELLOW + "GOOD BYE, THANKS A LOT!" + TEXT_RESET);
-                System.exit(0);
-                break;
+            } catch (InputMismatchException ignored) {
+                System.out.println("Invalid input. Please enter an integer!");
+                s.next();
             }
 
-            /*
-
-            String choosing = s.nextLine();
-            System.out.println("Do you want to continue using application? \n"
-                    + TEXT_GREEN+ "\t Y/y/YES to continue\n" +TEXT_RESET
-                    + TEXT_RED + "\t Any other key to exit" +TEXT_RESET);
-
-            if (Objects.equals(choosing, "Y") || Objects.equals(choosing, "y") || Objects.equals(choosing, "Yes") || Objects.equals(choosing, "yes"))
-            {
-                continue;
-            }
-            else
-            {
-                System.out.println(TEXT_YELLOW + "GOOD BYE! SEE YOU AGAIN" + TEXT_RESET);
-                s.close();
-                System.exit(0);
-                break;
-            }
-            */
         }
     }
 }
