@@ -1,6 +1,6 @@
 # PROJECT I - CYBER SECURITY - 20232
 
-This is project I for Cyber Security Advanced Program 2023.2, SoICT, HUST with the topic: Social Media Information Reconnaissance Program and Synchronize AirTable.
+This is Project I for Cyber Security Advanced Program 2023.2, SoICT, HUST with the topic: Social Media Information Reconnaissance Program and Synchronize AirTable.
 
 ## Member Information
 | Number    | Full Name          | Student ID | Github        |
